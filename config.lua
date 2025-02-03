@@ -26,3 +26,8 @@ Config.PlayerReviveAnim = {
     dict = "mini@cpr@char_a@cpr_str",
     name = "cpr_success"
 }
+
+-- Discord Webhook
+Config.DiscordWebhook = "https://discord.com/api/webhooks/ВАШ_WEBHOOK_URL"
+Config.DiscordWebhookName = "Медик Логи"
+Config.DiscordWebhookColor = 16711680 -- Красный цвет (в формате HEX)
