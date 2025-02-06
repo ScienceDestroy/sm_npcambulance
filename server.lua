@@ -32,6 +32,26 @@ function SendDiscordLog(playerName, action, details)
     PerformHttpRequest(Config.DiscordWebhook, function(err, text, headers) end, 'POST', json.encode({embeds = embed}), {['Content-Type'] = 'application/json'})
 end
 
+-- Функция подсчета онлайн медиков
+local function CountOnlineMedics()
+    local medicCount = 0
+    local players = QBCore.Functions.GetQBPlayers()
+    
+    for _, player in pairs(players) do
+        if player.PlayerData.job.name == "ambulance" then
+            medicCount = medicCount + 1
+        end
+    end
+    
+    return medicCount
+end
+
+-- Регистрация callback для проверки количества медиков
+QBCore.Functions.CreateCallback('qb-medicnpc:checkMedics', function(source, cb)
+    local medicCount = CountOnlineMedics()
+    cb(medicCount < Config.MaxMedicsForNPC)
+end)
+
 -- Регистрация callback для проверки баланса
 QBCore.Functions.CreateCallback('qb-medicnpc:checkBalance', function(source, cb)
     local src = source
